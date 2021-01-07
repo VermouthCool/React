@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script type="text/babel"> //此处改为babel  解析jsx变成js
+        class Life extends React.Component{
+            /*
+                1.construct()
+                2.componentWillMount() --将要废弃
+                3.render()
+                4.componentDidMount()
+                更新：
+                1.触发条件：this.setState()
+                2.componentWillUpdate() ---将废弃
+                render()
+                componentDidUpdate()
+                卸载：
+                ReactDOM.unmountComponentAtNode()
+                componentWillUnmount()
+                组件将要接受参数时：
+                componentWillReceiveProps() //第一次传参数时不会触发  新的props会触发  --将要废弃
+                this.forceUpdate()强制刷新 调用render
+
+
+                ---------
+                新增的两个钩子
+                1.getDerivedStateFromProps   代替了WillMount 和WillUpdate  在这两个阶段会触发
+                  使用时得+ static让对象自身调用 还得加一个返回值  可以是一个对象  或者是null
+                  使用时可以接受两个参数  第一个参数时Props 第二个是state
+                  return 的对象里面的会参照state里面的  有则代替  无则新加 第一次不会新加
+                2.getSnapshotBeforeUpdate
+                配合DidUpdate使用  必须有返回值  返回值作为DId的第三个参数接受
+                在renderheDidUpdate之间执行
+            */
+            state={
+                opacity:1
+            }
+            static getDerivedStateFromProps(a,b){
+                console.log(1);
+                console.log(a,b);
+                return a;
+            }
+            getSnapshotBeforeUpdate(){
+                console.log("getSnapshotBeforeUpdate");
+                return "jian";
+            }
+            componentWillMount(){
+                console.log(1);
+            }
+            componentDidMount(){
+                console.log(2);
+            }
+            componentWillUpdate(){
+                console.log(3);
+            }
+            componentDidUpdate(a,b,data){
+                console.log(a,b,data);
+            }
+            componentWillUnmount(){
+                clearInterval(this.a)
+                console.log(6);
+            }
+            shouldComponentUpdate(){
+                // 可以改应不应该更新
+                return true
+            }
+            death= ()=>{
+                ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+                console.log(7);
+            }
+            render(){
+                console.log(5);
+                clearInterval(this.a);
+                this.a = setInterval(()=>{
+                    this.state.opacity-=0.1
+                    if(this.state.opacity<=0){
+                        this.state.opacity=1;
+                    }
+                    let opacity = this.state;
+                    this.setState({opacity});
+                },200)
+                return <div>
+                        <h1 style={{opacity:this.state.opacity,color:"skyblue"}}>react学不会怎么办</h1>
+                        <button onClick={this.death}>点击</button>
+                    </div>
+            }
+        }
+        ReactDOM.render(<Life name="jian"/>,document.getElementById('test'))
+    </script>
+</body>
+</html>

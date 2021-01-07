@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script type="text/babel"> //此处改为babel  解析jsx变成js
+        class App extends React.Component{
+            state={
+                password:''
+            }
+            jiao= (event)=>{
+                event.preventDefault();
+                let {password} = this.state;
+                alert(`用户名：${this.refs.username.value}密码：${password}`)
+            }
+            change= (e)=>{
+                this.setState({password:e.target.value})
+            }
+            render(){
+                return <form action="" onSubmit={this.jiao}>
+                        用户名：<input type="text" ref="username"/>
+                        密码 <input type="password" ref="password"onChange={this.change} />
+                        <input type="submit" value=""/>
+                    </form>
+            }
+        }
+        ReactDOM.render(<App/>,document.getElementById('test'))
+   
+    // </script>
+    <!-- 维护到state里的叫受控，非为没放 -->
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <script type="text/babel"> //此处改为babel  解析jsx变成js
+        class Mycomponent extends React.Component{
+            // constructor(a){
+            //     super(a);
+            //     //构造器的this是实例对象
+                
+            //     this.demo = this.demo.bind(this);
+            // }
+            state={isHot:true};
+            demo=()=>{
+                //自己写的  没有重写 在类组件中自己定义的方法 this都是undefined
+                // this.state.isHot = !this.state.isHot  组件的state不能直接的修改 
+                let isHot = !this.state.isHot;
+                this.setState({isHot});//有则修改 无则新加
+            }
+            render(){//重写父类的render 初始化时调用一次  改变状态时也会改变
+                console.log("------");
+                let {isHot} = this.state;
+                return <h1 onClick={this.demo}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>
+            }
+        }//React的绑定事件需要onClick  所有on后面的字符大写 表达式不需要括号 
+        function demo(){
+            alert(1)
+        }
+        ReactDOM.render(<Mycomponent/>,document.body);
+    </script>
+</body>
+</html>

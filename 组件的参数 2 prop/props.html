@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+
+    <!-- 限制组件参数的 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script type="text/babel"> //此处改为babel  解析jsx变成js
+        class Person extends React.Component{
+            static propTypes={
+            name:PropTypes.string.isRequired,
+            age:PropTypes.number,
+            sex:PropTypes.string,
+        }
+            static defaultProps={
+            age:18,
+            sex:'男'
+        }
+            render(){
+                return <ul>
+                        <li>姓名：{this.props.name}</li>
+                        <li>年龄:{this.props.age}</li>
+                        <li>性别：{this.props.sex}</li>
+                    </ul>
+            }
+        }
+        //react15开始弃用 xinde
+        let person = {name:"jian"}
+        ReactDOM.render(<Person {...person} />,document.body) //这里的...person本来应该报错  react+babel避免其报错
+    </script>
+</body>
+</html>

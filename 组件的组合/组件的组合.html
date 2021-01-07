@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script type="text/babel"> //此处改为babel  解析jsx变成js
+        class App extends React.Component{
+            state={
+                arr:["吃饭","睡觉","打豆豆"]
+            }
+            //状态在哪个组件里  更新状态的方法就在哪个组件里 arr={this.state} zhe={this
+            addwork=(data)=>{
+                this.state.arr.push(data);
+                let {arr} = this.state;
+                this.setState({arr});
+            }
+            speack=function(){
+                console.log(this);
+            }
+            render(){
+                console.log(this);
+                return <div>
+                        <h1>这是写的第一个组件的集合</h1>
+                        <Add add={this.addwork} count={this.state.arr.length}/>
+                        <List {...this.state}/>
+                    </div>
+            }
+        }
+        class Add extends React.Component{
+            // add=()=>{
+            //     if(this.jian.value.trim()===""){
+            //         return
+            //     }
+            //     let newArr = this.props.arr.arr.push(this.jian.value);
+            //     var a = this.props.arr.arr;
+            //     this.props.zhe.setState({a})
+            // }
+            myRef = React.createRef();
+            add=()=>{
+                    if(this.jian.value.trim()===""){
+                        return;
+                    }
+                    this.props.add(this.jian.value.trim());
+                    this.jian.value=''
+                    this.myRef.current.value=this.props.count;
+                }
+            render(){
+                return <div>
+                        <input type="text"ref={input=>this.jian=input} />
+                        <input type="button" value={this.props.count} ref={this.myRef}  onClick={this.add}/>
+                    </div>
+            }
+        }
+        class List extends React.Component{
+            render(){
+                return <div>
+                    <ul>
+                        {
+                            this.props.arr.map((value,index)=>{
+                                return <li key={index}>{value}</li>
+                            })
+                        }    
+                    </ul>
+                </div>
+            }
+        }
+        ReactDOM.render(<App/>,document.getElementById('test'))
+    </script>
+</body>
+</html>

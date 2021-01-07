@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <!-- 浏览器会优先运行JavaScript标签里的   后面才是babel  在babel定义的变量 JavaScript里拿不到 -->
+    <script type="text/javascript">
+        let myid = "atIguiGu";
+        let mydata = "Hello,World";
+        let vDom = React.createElement('h2',{id:myid.toLowerCase(),style:{color:'red'}},mydata.toLowerCase());
+        ReactDOM.render(vDom,document.getElementById('test1'));
+    </script>
+
+    <!-- babel -->
+    <script type="text/babel">
+        let vDom2 = <h3 id={myid.toUpperCase()} className="red">{mydata.toUpperCase()}</h3>;
+        ReactDOM.render(vDom2,document.getElementById("test2"));
+        // 类名要用className  只能有一个根标签
+    </script>
+</body>
+</html>

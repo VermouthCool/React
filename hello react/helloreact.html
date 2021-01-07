@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <script type="text/babel"> //此处改为babel  解析jsx变成js
+        // 1.创建虚拟dom  jsx
+        //这个<h1></h1>与html里面的<h1></h1>是一一对应的
+        let vDom = <h1>Hello React</h1>
+        //2.借助react把虚拟dom放到页面上  变成真的
+        ReactDOM.render(vDom,document.getElementById("test"));
+    </script>
+</body>
+</html>

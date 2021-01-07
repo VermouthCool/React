@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <!-- jsx{}的里面只能执行表达式
+    1.表达式会产生一个值
+    2.语句没有返回值
+    -->
+    <script type="text/babel">
+    let data = ["Angulr","React","Vue"]
+        let vDom = <div>
+            <h2>前端框架</h2>
+            <ul>
+                {/*把js的数组遍历成标签的数组*/}
+                {
+                    data.map((value,index)=>{
+                        return <li key={index}>{value}</li>;
+                    })
+                }
+            </ul>
+            </div>;
+        ReactDOM.render(vDom,document.body);
+    </script>
+</body>
+</html>

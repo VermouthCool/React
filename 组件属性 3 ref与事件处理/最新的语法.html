@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <script type="text/babel"> //此处改为babel  解析jsx变成js
+        class Jian extends React.Component{
+            myRef = React.createRef()//
+            /*
+                1.创建了保存ref的容器  专人专用  只能保存一个ref
+            */
+            dian=()=>{
+                alert(this.myRef.current.value);
+            }
+            blur=()=>{
+                alert(this.refs.input2.value)
+            }
+            render(){
+                return <div>
+                    <input type="text" ref={this.myRef}/> 
+                    <button onClick={this.dian}>点击查询</button>
+                    <input type="text" ref="input2" placeholder="失去焦点"  onBlur={this.blur}/>
+                    </div>
+            }
+        }
+        ReactDOM.render(<Jian/>,document.body)
+    </script>
+    <script>
+        let o = {0:0,1:1,length:2}
+        console.log(Array.prototype.push.call(o,3));
+        console.log(o);
+    </script>
+</body>
+</html>

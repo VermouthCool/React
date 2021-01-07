@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/16.10.2/umd/react.development.js"></script>
+    <!-- 引入react-dom用于操作dom -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.10.2/umd/react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <!-- 使用工厂函数创建组件 -->
+    <script type="text/babel">
+        //组件的工厂函数首字母必须大写
+        function Mycomponent(){
+            console.log(this);//工厂函数的this是undefined  禁止自定义的函数this指向window
+            return <div>
+                <h1>工厂函数创建的组件，无状态</h1>
+                <Ha/>
+                </div>
+        }
+        function Ha(){
+            return '哈哈'
+        }
+        /*首字母小写回去查找html与之对应*/
+        /*查找有没有定义*/
+        ReactDOM.render(<Mycomponent/>,document.getElementById('test1'));
+
+        /*第二种ES6*/
+        class Jian extends React.Component{
+            constructor(a,b){
+                super(a);
+            }
+            //重写从父类继承来的方法
+            render(){
+                console.log(this); //render的this组件类的实例
+                return <h1>ES6创建，有状态</h1>
+            }
+        }
+        //创建实例 调用render 获取返回值
+        ReactDOM.render(<Jian/>,document.getElementById('test2'))
+    </script>
+</body>
+</html>
